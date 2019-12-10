@@ -1,11 +1,15 @@
+{% load static %}
+{% load cache %}
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	{% load static %}
 	<meta charset = "utf-8">
 	<title>{% block title %}首页{% endblock %}-typeidea博客系统</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+	{% block extra_head %}
+	{% endblock %}
 	<style>
 		.post{
 			margin-bottom: 5px; 
@@ -25,9 +29,9 @@
 				</li>
 			{% endfor %}
 			</ul>
-			<form class="form-inline my-2 my-lg-0" method='GET'>
-				<input class="form-control mr-sm-2" type="search"placeholder="Search"
-					aria-label="Search">
+			<form class="form-inline my-2 my-lg-0" action='/search' method='GET'>
+				<input class="form-control mr-sm-2" type="search" name="keyword" placeholder="Search"
+					aria-label="Search" value="{{ keyword }}">
 				<button class="btn btn-outline-success" type="submit">搜索</button>
 			</form>
 		</div>
@@ -46,16 +50,16 @@
 		</div>
 		<div class="col-3">
 			{% block sidebar %}
-			{% for sidebar in sidebars %}
-			<div class="card sidebar">
-				<div class="card-body">
-					<h4 class="card-title">{{ sidebar.title }}</h4>
-					<p>
-						{{ sidebar.content_html }}
-					</p>
+				{% for sidebar in sidebars %}
+				<div class="card sidebar">
+					<div class="card-body">
+						<h4 class="card-title">{{ sidebar.title }}</h4>
+						<p>
+							{{ sidebar.content_html }}
+						</p>
+					</div>
 				</div>
-			</div>
-			{% endfor %}
+				{% endfor %}
 			{% endblock %}
 		</div>
 	</div>
